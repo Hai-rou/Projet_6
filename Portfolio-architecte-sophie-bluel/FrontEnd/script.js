@@ -113,8 +113,31 @@ function toggleProjects(datasetCategory) {
 }
 
 //******************************ADMIN MODE******************************************/
+console.log(sessionStorage.getItem("token").length)//Very important for counter window.onload when no login user !
 
-function isAdmin(userID) {
-    return userID === 1
+function isAdmin() {
+    console.log("Fonction isAdmin appelée")
+    const token = sessionStorage.getItem("token")
+    if(token && token.length === 143) {
+        const filterElement = document.querySelector(".filter")
+        const logLinkElement = document.getElementById("logLink")
+
+        if(filterElement){
+        filterElement.style.display = "none"
+        }
+         if(logLinkElement){
+        logLinkElement.innerText = "Log Out"
+        }
+   }
 }
-console.log(userID)
+
+isAdmin()
+
+//*************Delete token when logout */
+document.getElementById("logLink").addEventListener("click", (e) => {
+    e.preventDefault()
+    sessionStorage.removeItem("token")
+    window.location.href="login.html"
+})
+
+//*******************MODAL *********************/

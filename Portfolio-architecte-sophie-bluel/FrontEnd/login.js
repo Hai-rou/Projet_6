@@ -59,7 +59,7 @@ myForm.addEventListener("submit", (event) => {
         response.json().then((data) => {
             //STORE TOKEN
             sessionStorage.setItem("token", data.token)
-            window.location.replace("index.html")
+            window.location.href="index.html"
             })
         }
     })
