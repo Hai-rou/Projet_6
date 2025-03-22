@@ -54,6 +54,12 @@ body {
 	font-family: 'Work Sans' ;
 	font-size: 14px;
 }
+.topMenu{
+	background-color: black;
+	align-items: center;
+}
+
+
 header {
 	display: flex;
 	justify-content: space-between;

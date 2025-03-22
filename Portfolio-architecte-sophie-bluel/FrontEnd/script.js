@@ -113,7 +113,6 @@ function toggleProjects(datasetCategory) {
 }
 
 //******************************ADMIN MODE******************************************/
-console.log(sessionStorage.getItem("token").length)//Very important for counter window.onload when no login user !
 
 function isAdmin() {
     console.log("Fonction isAdmin appelée")
@@ -126,7 +125,7 @@ function isAdmin() {
         filterElement.style.display = "none"
         }
          if(logLinkElement){
-        logLinkElement.innerText = "Log Out"
+        logLinkElement.innerText = "Logout"
         }
    }
 }
@@ -138,6 +137,17 @@ document.getElementById("logLink").addEventListener("click", (e) => {
     e.preventDefault()
     sessionStorage.removeItem("token")
     window.location.href="login.html"
+
+    const body = document.querySelector("body")
+    const topMenu = document.createElement("div")
+    const editMode = document.createElement("p")
+
+    topMenu.className = "topMenu"
+    editMode.innerText = '<i class="fa-solid fa-pen-to-square"></i>Mode édition'
+
+    body.appendChild(topMenu)
+    topMenu.appendChild(editMode)
+
 })
 
 //*******************MODAL *********************/
