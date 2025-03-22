@@ -1,4 +1,4 @@
-const ApiUrl = "http://localhost:5678/api/"
+
 
 const myForm = document.getElementById('myForm');
 const baliseEmail = document.getElementById('email');
@@ -38,31 +38,30 @@ myForm.addEventListener("submit", function(e) {
 })
 
 
-//Login (fectch + recup token (Try/catch))
+//Login (fectch + recup token (Try/catch = fail))
 
 myForm.addEventListener("submit", (event) => {
     event.preventDefault()
     let form = {baliseEmail,baliseMotdepass}
-    try {
-        fetch("http://localhost:5678/api/users/login/", {
-            method:'POST',
-            headers: {Accept : "application/json",
-                "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-                email: form.baliseEmail.value,
-                password: form.baliseMotdepass.value,
-            }),
-        }).then((response) => {
-            response.json().then((data) => {
-                sessionStorage.setItem("token", data.token)
-                window.location.replace("index.html")
-                console.log(data)
+    fetch("http://localhost:5678/api/users/login/", {
+        method:'POST',
+        headers: {Accept : "application/json",
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+            email: form.baliseEmail.value,
+            password: form.baliseMotdepass.value,
+        }),
+    }).then((response) => {
+        if(response.status !== 200){
+            alert("Le mail ou le mot de passe est incorrect !")
+        }else {
+        response.json().then((data) => {
+            //STORE TOKEN
+            sessionStorage.setItem("token", data.token)
+            window.location.replace("index.html")
             })
-        })
-    }catch(erreur) {
-        console.error("Erreur 401 ou 404",erreur)
-    }
+        }
+    })
 })
-
 

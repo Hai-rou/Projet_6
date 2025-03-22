@@ -1,3 +1,4 @@
+
 const ApiUrl = "http://localhost:5678/api/"
 let worksData;
 let categories;
@@ -47,7 +48,7 @@ data.forEach((i) => {
 
 /****Filtre***/
 
-/****Get array category**/
+/****Get array category (A MODIFIER)**/
 function listOfcategories() {
     let listOfcategories = new Set();
     worksData.forEach((work) => {
@@ -111,6 +112,9 @@ function toggleProjects(datasetCategory) {
     }
 }
 
+//******************************ADMIN MODE******************************************/
 
-
-
+function isAdmin(userID) {
+    return userID === 1
+}
+console.log(userID)
