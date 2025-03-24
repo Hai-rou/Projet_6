@@ -127,27 +127,34 @@ function isAdmin() {
          if(logLinkElement){
         logLinkElement.innerText = "Logout"
         }
+
+        const parentElement = document.querySelector("body")
+        const topMenu = document.createElement("div")
+        const editMode = document.createElement("p")
+
+        topMenu.className = "topMenu"
+        
+        editMode.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>Mode édition'
+
+        if(parentElement){
+            parentElement.insertAdjacentElement("afterbegin", topMenu)
+        }
+        if(topMenu){
+            topMenu.append(editMode)
+        }
+        
+        console.log("c'est ok")
    }
 }
 
 isAdmin()
 
-//*************Delete token when logout */
+//*************Delete token when logout**************/
+
 document.getElementById("logLink").addEventListener("click", (e) => {
     e.preventDefault()
     sessionStorage.removeItem("token")
     window.location.href="login.html"
-
-    const body = document.querySelector("body")
-    const topMenu = document.createElement("div")
-    const editMode = document.createElement("p")
-
-    topMenu.className = "topMenu"
-    editMode.innerText = '<i class="fa-solid fa-pen-to-square"></i>Mode édition'
-
-    body.appendChild(topMenu)
-    topMenu.appendChild(editMode)
-
 })
 
 //*******************MODAL *********************/

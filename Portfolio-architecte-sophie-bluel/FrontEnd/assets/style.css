@@ -55,10 +55,25 @@ body {
 	font-size: 14px;
 }
 .topMenu{
+	display: flex;
+	justify-content: center;
 	background-color: black;
 	align-items: center;
+	height: 59px;
 }
 
+a{
+	text-decoration: none;
+	color:black;
+}
+
+.topMenu p {
+	color: white;
+}
+p .fa-solid{
+	color:white;
+	padding-right: 10px;
+}
 
 header {
 	display: flex;
