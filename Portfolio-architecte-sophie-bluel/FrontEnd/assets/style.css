@@ -61,7 +61,16 @@ body {
 	align-items: center;
 	height: 59px;
 }
-
+.btnEtid{
+	position: absolute;
+	position-area: bottom;
+	margin-top: -50px;
+	margin-left: 24%;
+	color: black;
+}
+.btnEtid .fa-solid{
+	color: black;
+}
 a{
 	text-decoration: none;
 	color:black;
@@ -225,10 +234,16 @@ input[type="submit"]{
 	text-align: center;
 }
 
+footer{
+	width: 100%;
+	background-color: white;
+	height: 60px;
+	align-content: center;
+}
 
 footer nav ul {
 	display: flex;
 	justify-content: flex-end;
-	margin: 2em
+	margin-right: 7%;
 }
 

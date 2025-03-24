@@ -117,6 +117,7 @@ function toggleProjects(datasetCategory) {
 function isAdmin() {
     console.log("Fonction isAdmin appelée")
     const token = sessionStorage.getItem("token")
+    
     if(token && token.length === 143) {
         const filterElement = document.querySelector(".filter")
         const logLinkElement = document.getElementById("logLink")
@@ -133,7 +134,7 @@ function isAdmin() {
         const editMode = document.createElement("p")
 
         topMenu.className = "topMenu"
-        
+
         editMode.innerHTML = '<i class="fa-solid fa-pen-to-square"></i>Mode édition'
 
         if(parentElement){
@@ -142,8 +143,12 @@ function isAdmin() {
         if(topMenu){
             topMenu.append(editMode)
         }
-        
-        console.log("c'est ok")
+
+        const btnEtid = `<p class="btnEtid"><i class="fa-solid fa-pen-to-square"></i>Mode édition</p>`
+        document.querySelector("#portfolio h2").insertAdjacentHTML("afterend", btnEtid)
+
+        //Event listener moddal
+
    }
 }
 
