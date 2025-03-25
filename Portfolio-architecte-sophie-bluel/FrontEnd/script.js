@@ -38,11 +38,15 @@ data.forEach((i) => {
     workImage.src = i.imageUrl;
     workImage.alt = i.title;
     workTitle.innerText = i.title;
+    //Warning modal test
+    workTitle.style.display = 'none'
+    ////
     workCard.dataset.category = i.category.name;
     workCard.className = "workCard";
     
     gallery.appendChild(workCard);
     workCard.append(workImage, workTitle);
+
   });
 }
 
@@ -148,7 +152,7 @@ function isAdmin() {
         document.querySelector("#portfolio h2").insertAdjacentHTML("afterend", btnEtid)
 
         //Event listener moddal
-
+        document.querySelector("#portfolio p").addEventListener("click", openModal)
    }
 }
 
@@ -163,3 +167,12 @@ document.getElementById("logLink").addEventListener("click", (e) => {
 })
 
 //*******************MODAL *********************/
+
+const openModal = function() {
+    if(sessionStorage.getItem("token").length === 143){
+        modal = document.querySelector(".modal")
+        modal.style.display = "flex"
+        
+    }
+}
+
