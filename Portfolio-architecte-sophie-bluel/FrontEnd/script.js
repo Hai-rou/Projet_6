@@ -16,6 +16,8 @@ window.onload = () =>{
         /**Récupération des travaux***/
         listOfcategories();
         
+        modalDataGallery(worksData)
+
         dataGallery(worksData);
         /***Filtre***/
         filter = document.querySelector(".filter");
@@ -39,7 +41,7 @@ data.forEach((i) => {
     workImage.alt = i.title;
     workTitle.innerText = i.title;
     //Warning modal test
-    workTitle.style.display = 'none'
+   
     ////
     workCard.dataset.category = i.category.name;
     workCard.className = "workCard";
@@ -168,11 +170,21 @@ document.getElementById("logLink").addEventListener("click", (e) => {
 
 //*******************MODAL *********************/
 
-const openModal = function() {
-    if(sessionStorage.getItem("token").length === 143){
-        modal = document.querySelector(".modal")
-        modal.style.display = "flex"
-        
-    }
+function openModal(){
+    document.querySelector('.overlay').style.display = 'block'
+    document.querySelector('.modal').style.display = 'block'
 }
 
+function modalDataGallery(data){
+    modalGallery = document.querySelector('.modal_gallery')
+    modalGallery.innerHTML = ""
+
+    data.forEach((i) => {
+        const modalImg = document.createElement("img")
+
+        modalImg.src = i.imageUrl;
+        modalImg.alt = i.title;
+
+        modalGallery.appendChild(modalImg);
+    })
+}

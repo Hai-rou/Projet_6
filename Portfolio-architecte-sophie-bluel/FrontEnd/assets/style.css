@@ -55,10 +55,11 @@ table {
 	width: 100%;
 	height: 100%;
 	background-color: grey;
-	opacity: 0.4;	
+	opacity: 0.4;
+	display: none;	
 }
 .modal{
-	position: absolute;
+	position: fixed;
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
@@ -67,24 +68,57 @@ table {
 	background-color: white;
 	padding: 30px;
 	border-radius: 10px;
-	
+	display: none;
 }
 .modal_close{
+	background-color: white;
+	border: none;
 	position: absolute;
 	cursor: pointer;
+	position-area: bottom;
+	margin-left: 84%;
+}
+.modal_close .fa-solid{
+	font-weight: 700;
+	font-size: 20px;
 }
 .modal_body{
-	padding: 80px;
+	padding: 45px;
 	display: flex;
 	justify-content: center;
 }
+.modal_header_title{
+	font-family: 'word sans';
+	color: black;
+	text-align: center;
+	padding-top: 30px;
 
-.modal_body .gallery{
-
-	grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
-	
 }
+.modal_gallery{
+	display: grid;
+	grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
+	grid-template-rows: 160px 160px;
+	gap: 10px;
+	padding-bottom: 40px;
+	border-bottom: solid 1px #B3B3B3;
+}
+.modal_gallery img{
+	width: 100px;
+}
+.modal_footer{
+	display: flex;
+	justify-content: center;
+}
+.modal_btn_add_pict{
+	font-family: 'Syne';
+	width: 230px;
+	height: 36px;
+	border-radius: 60px;
+	background-color: #1D6154;
+	color: white;
+	margin-top: -15px;
 
+}
 /** end reset css**/
 body {
 	max-width: 1140px;
