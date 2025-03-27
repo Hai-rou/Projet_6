@@ -184,7 +184,23 @@ function modalDataGallery(data){
 
         modalImg.src = i.imageUrl;
         modalImg.alt = i.title;
+    
 
         modalGallery.appendChild(modalImg);
+
     })
+    console.log(data.length)
+    deletBin = data.length
+
+    const binIcons =document.createElement("div")
+    
+    for(let i = 0; i < deletBin; i++){
+        
+        const binIcon = `<p class="binIcon"><i class="fa-solid fa-trash-can"></i></p>`
+
+       
+
+        document.querySelector(".modal_gallery").insertAdjacentHTML("afterbegin",binIcon)
+    }
+    
 }

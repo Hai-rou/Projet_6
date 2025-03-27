@@ -105,6 +105,13 @@ table {
 .modal_gallery img{
 	width: 100px;
 }
+.binIcon{
+	position: absolute;
+}
+
+
+
+
 .modal_footer{
 	display: flex;
 	justify-content: center;
@@ -119,6 +126,12 @@ table {
 	margin-top: -15px;
 
 }
+
+
+
+
+
+
 /** end reset css**/
 body {
 	max-width: 1140px;
@@ -134,11 +147,10 @@ body {
 	height: 59px;
 }
 .btnEtid{
-	position: absolute;
-	position-area: bottom;
 	margin-top: -50px;
-	margin-left: 26%;
+	margin-left: 62%;
 	color: black;
+	margin-bottom: 50px;
 }
 .btnEtid .fa-solid{
 	color: black;

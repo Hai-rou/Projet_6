@@ -11,12 +11,12 @@ function validationUser() {
     const regExpmail = "[a-z0-9._-]+@[a-z0-9._-]+\.[a-z0-9._-]+"
     const regMdp = "^[A-Za-z0-9]{5,}$"
     if(!regExpmail === baliseEmail.value) {
-        myError.innerHTML = "Le mail est incorrect"
+        myError.innerHTML = "Le mail ou mot de passe est incorrect"
         myError.style.color = 'red'
         return false
     }
     if(!regMdp === baliseMotdepass.value){
-        myError.innerHTML = "Le mot de passe est incorrect"
+        myError.innerHTML = "Le mail ou mot de passe est incorrect"
         myError.style.color = 'red'
         return false
     }
@@ -24,12 +24,12 @@ function validationUser() {
 
 myForm.addEventListener("submit", function(e) {
     if(baliseMotdepass.value.trim() === ""){
-        myError.innerHTML = "Le mot de passe est incorrect"
+        myError.innerHTML = "Le mail ou mot de passe est incorrect"
         myError.style.color = 'red'
         e.preventDefault()
     }
     if(baliseEmail.value.trim() === ""){
-        myError.innerHTML = "Le mail est incorrect"
+        myError.innerHTML = "Le mail ou mot de passe est incorrect"
         myError.style.color = 'red'
         e.preventDefault()
     }
