@@ -105,8 +105,17 @@ table {
 .modal_gallery img{
 	width: 100px;
 }
-.binIcon{
+.litleCard{
+	display: flex;
+}
+
+.litleCard .fa-solid{
 	position: absolute;
+	border: 1px solid;
+	padding: 4px;
+	background-color: black;
+	color: white;
+
 }
 
 

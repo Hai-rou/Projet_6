@@ -170,9 +170,16 @@ document.getElementById("logLink").addEventListener("click", (e) => {
 
 //*******************MODAL *********************/
 
+/****Open modal*****/
 function openModal(){
     document.querySelector('.overlay').style.display = 'block'
     document.querySelector('.modal').style.display = 'block'
+}
+
+//*******Close Modal*******/
+
+function closeModal(){
+    
 }
 
 function modalDataGallery(data){
@@ -180,27 +187,20 @@ function modalDataGallery(data){
     modalGallery.innerHTML = ""
 
     data.forEach((i) => {
-        const modalImg = document.createElement("img")
+        const litleCard = document.createElement("figure")
+        const litleImage = document.createElement("img")
+        const binIcon = document.createElement("i")
 
-        modalImg.src = i.imageUrl;
-        modalImg.alt = i.title;
-    
+        binIcon.id = i.id
+        binIcon.classList.add("fa-solid", "fa-trash-can")
+        litleImage.src = i.imageUrl
+        litleImage.alt = i.title
 
-        modalGallery.appendChild(modalImg);
-
-    })
-    console.log(data.length)
-    deletBin = data.length
-
-    const binIcons =document.createElement("div")
-    
-    for(let i = 0; i < deletBin; i++){
+        litleCard.className = "litleCard"
+        modalGallery.appendChild(litleCard)
+        litleCard.append(litleImage,binIcon)
         
-        const binIcon = `<p class="binIcon"><i class="fa-solid fa-trash-can"></i></p>`
-
-       
-
-        document.querySelector(".modal_gallery").insertAdjacentHTML("afterbegin",binIcon)
-    }
-    
+    })
 }
+
+
