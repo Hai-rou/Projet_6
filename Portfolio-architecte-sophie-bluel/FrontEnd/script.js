@@ -153,8 +153,14 @@ function isAdmin() {
         const btnEtid = `<p class="btnEtid"><i class="fa-solid fa-pen-to-square"></i>Mode édition</p>`
         document.querySelector("#portfolio h2").insertAdjacentHTML("afterend", btnEtid)
 
-        //Event listener moddal
+        //Event listener modal
+        //Open modal
         document.querySelector("#portfolio p").addEventListener("click", openModal)
+        //Close Modal
+        document.querySelector(".modal_close").addEventListener("click", closeModal)
+        document.querySelector(".overlay").addEventListener("click", closeModal)
+        //Delete work
+        
    }
 }
 
@@ -179,9 +185,10 @@ function openModal(){
 //*******Close Modal*******/
 
 function closeModal(){
-    
+    document.querySelector('.modal').style.display = 'none'
+    document.querySelector('.overlay').style.display = 'none'
 }
-
+//***************Create Modal gallery**********/
 function modalDataGallery(data){
     modalGallery = document.querySelector('.modal_gallery')
     modalGallery.innerHTML = ""
@@ -199,8 +206,36 @@ function modalDataGallery(data){
         litleCard.className = "litleCard"
         modalGallery.appendChild(litleCard)
         litleCard.append(litleImage,binIcon)
-        
+
+
+        document.addEventListener("click",btnDelet)
     })
 }
 
+//******Delete mode********/
 
+const btnDelet = function(e) {
+    e.preventDefault()
+
+    if(e.target.matches(".fa-trash-can")){
+        deleteWork(e.target.id)
+    }
+}
+//Call API to delete work*///
+
+function deleteWork(i){
+    let token = sessionStorage.getItem("token")
+    fetch("http://localhost:5678/api/works/" + i, {
+        method:`DELETE`,
+        headers: {
+            authorization: `Bearer ${token}`,
+        },
+    }).then((response) => {
+        if(response.status = 200){
+            worksData = worksData.filter((work) => work.id != i)
+            modalDataGallery(worksData)
+        }else{
+            console.log(response.status)
+        }
+    })
+}

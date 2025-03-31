@@ -97,7 +97,7 @@ table {
 .modal_gallery{
 	display: grid;
 	grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
-	grid-template-rows: 160px 160px;
+	grid-template-rows: 135px;
 	gap: 10px;
 	padding-bottom: 40px;
 	border-bottom: solid 1px #B3B3B3;
@@ -115,7 +115,9 @@ table {
 	padding: 4px;
 	background-color: black;
 	color: white;
-
+	margin-top: 7px;
+	margin-left: 72px;
+	cursor: pointer;
 }
 
 
