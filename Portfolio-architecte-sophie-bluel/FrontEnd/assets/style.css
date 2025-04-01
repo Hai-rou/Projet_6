@@ -119,10 +119,6 @@ table {
 	margin-left: 72px;
 	cursor: pointer;
 }
-
-
-
-
 .modal_footer{
 	display: flex;
 	justify-content: center;
@@ -135,13 +131,42 @@ table {
 	background-color: #1D6154;
 	color: white;
 	margin-top: -15px;
-
+	cursor: pointer;
 }
-
-
-
-
-
+/******Second Modal******/
+#addPictureForm{
+	padding-bottom: 40px;
+	border-bottom: solid 1px #B3B3B3;
+}
+#labelpicture{
+	border-radius: 3px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+	width: 500px;
+	height: 190px;
+	background-color: #E8F1F6;
+	gap: 10px;
+}
+#labelpicture{
+	color: #444444;
+}
+#picture{
+	font-size: 90px;
+	color: #B9C5CC;
+}
+#browsePictures{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	width: 173px;
+	height: 40px;
+	color: #306685;
+	background-color: #CBD6DC;
+	border-radius: 50px;
+	font-weight: 700;
+}
 
 /** end reset css**/
 body {

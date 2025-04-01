@@ -15,7 +15,7 @@
 <body>
 	<div class="overlay"></div>
 
-	<div class="modal">
+	<div id="modal1" class="modal">
 		<button class="modal_close"><i class="fa-solid fa-x"></i></button>
 		<div class="modal_header">
 			<h2 class="modal_header_title">Galerie photo</h2>
@@ -24,7 +24,28 @@
 			<div class="modal_gallery"></div>
 		</div>
 		<div class="modal_footer">
-			<button class="modal_btn_add_pict">Ajouter une photo</button>
+			<button id="openModal2" class="modal_btn_add_pict">Ajouter une photo</button>
+		</div>
+
+
+		<div id="modal2" class="modal">
+			<button class="modal_close"><i class="fa-solid fa-x"></i></button>
+			<div class="modal_header">
+				<h2 class="modal_header_title">Ajouter une photo</h2>
+			</div>
+			<div class="modal_body">
+				<form id="addPictureForm" name="addPictureForm">
+					<div id="labelpicture">
+						<i class="fa-regular fa-image" id="picture"></i>
+						<label for="photo" id="browsePictures">+ Ajouter une photo</label>
+						<p>jpg, png : 4mo max</p>
+					</div>
+
+				</form>
+			</div>
+			<div class="modal_footer">
+				<button class="modal_btn_add_pict">Valider</button>
+			</div>
 		</div>
 	</div>
 <header>

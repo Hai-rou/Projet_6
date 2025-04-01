@@ -180,6 +180,7 @@ document.getElementById("logLink").addEventListener("click", (e) => {
 function openModal(){
     document.querySelector('.overlay').style.display = 'block'
     document.querySelector('.modal').style.display = 'block'
+
 }
 
 //*******Close Modal*******/
@@ -207,7 +208,9 @@ function modalDataGallery(data){
         modalGallery.appendChild(litleCard)
         litleCard.append(litleImage,binIcon)
 
+        document.querySelector(".modal_btn_add_pict").addEventListener("click", openNewModal)
 
+        //**Delete mode**/
         document.addEventListener("click",btnDelet)
     })
 }
@@ -239,3 +242,8 @@ function deleteWork(i){
         }
     })
 }
+//******ADD Picture*****/
+function openNewModal(){
+    document.querySelector('#modal2').style.display = 'block'
+}
+ 
