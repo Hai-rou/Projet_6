@@ -26,10 +26,9 @@
 		<div class="modal_footer">
 			<button id="openModal2" class="modal_btn_add_pict">Ajouter une photo</button>
 		</div>
-
-
 		<div id="modal2" class="modal">
-			<button class="modal_close"><i class="fa-solid fa-x"></i></button>
+			<button id="closeTwo" class="modal_close"><i class="fa-solid fa-x"></i></button>
+			<div id="return"><i class="fa-solid fa-arrow-left"></i></div>
 			<div class="modal_header">
 				<h2 class="modal_header_title">Ajouter une photo</h2>
 			</div>
@@ -40,11 +39,18 @@
 						<label for="photo" id="browsePictures">+ Ajouter une photo</label>
 						<p>jpg, png : 4mo max</p>
 					</div>
-
+					<div id="previewPict">
+						<img src="#" alt="Votre photo" id="previewPictImg">
+					</div>
+					<input type="file" class="photo" name="photo" id="photo" accept="image/png, image/jpeg" required>
+					<label for="title">Titre</label>
+					<input type="text" name="title" id="title" required>
+					<label for="selectCategory">Categories</label>
+					<select name="selectCategory" id="selectCategory"></select>
 				</form>
 			</div>
 			<div class="modal_footer">
-				<button class="modal_btn_add_pict">Valider</button>
+				<button id="btnadd" class="modal_btn_add_pict">Valider</button>
 			</div>
 		</div>
 	</div>

@@ -14,7 +14,7 @@ window.onload = () =>{
         worksData = data;
         console.log(data)
         /**Récupération des travaux***/
-        listOfcategories();
+        listOfcategories()
         
         modalDataGallery(worksData)
 
@@ -26,7 +26,6 @@ window.onload = () =>{
         
     })
 }
-
 /***Gallery****/
 function dataGallery(data) {
     gallery = document.querySelector(".gallery");
@@ -53,7 +52,12 @@ data.forEach((i) => {
 }
 
 /****Filtre***/
+async function getFilters() {                                               
+    const response = await fetch ("http://localhost:5678/api/categories")   
+    return await response.json()  
 
+}
+getFilters()
 /****Get array category (A MODIFIER)**/
 function listOfcategories() {
     let listOfcategories = new Set();
@@ -66,57 +70,59 @@ function listOfcategories() {
     categories = arrayofStrings.map((s) => JSON.parse(s));
     console.log(categories)
 }
-//Init buttons
-function dataFilter(categories, filter){
-    const button =document.createElement("button");
-    button.innerText = "Tous";
-    button.className = "btn";
-    button.dataset.category = "Tous";
-    filter.appendChild(button);
-    filterBtn(categories, filter);
-    functionFilter();
-}
+                                                                    //Init buttons
+                                                                    function dataFilter(categories, filter){
+                                                                        const button =document.createElement("button");
+                                                                        button.innerText = "Tous";
+                                                                        button.className = "btn";
+                                                                        button.dataset.category = "Tous";
+                                                                        filter.appendChild(button);
+                                                                        filterBtn(categories, filter);
+                                                                        functionFilter();
+                                                                        
+                                                                    }
 
 
-/****Create button***/
-function filterBtn(categories, filter) {
-    categories.forEach((categorie) => {
-        createbtnfilter(categorie, filter)
-    })
+                                                                    /****Create button***/
+                                                                    function filterBtn(categories, filter) {
+                                                                        categories.forEach((categorie) => {
+                                                                            createbtnfilter(categorie, filter)
+                                                                        })
+                                                                        
+                                                                    }
+
+                                                                    function createbtnfilter(categorie, filter) {
+                                                                        const button = document.createElement("button");
+                                                                        button.innerText = categorie.name;
+                                                                        button.className = "btn"; 
+                                                                        button.dataset.category = categorie.name; 
+                                                                        filter.appendChild(button)
 }
 
-function createbtnfilter(categorie, filter) {
-    const button = document.createElement("button");
-    button.innerText = categorie.name;
-    button.className = "btn"; 
-    button.dataset.category = categorie.name; 
-    filter.appendChild(button)
-}
-
-// Filter
-function functionFilter() {
-    const filterbuttons = document.querySelectorAll(".btn");
-    filterbuttons.forEach((i) => {
-        i.addEventListener("click", function () {
-            toggleProjects(i.dataset.category);
-        });
-    });
-}
-// 
-function toggleProjects(datasetCategory) {
-    const figures = document.querySelectorAll(".workCard");
-    if ("Tous" === datasetCategory) {
-        figures.forEach((figure) => {
-            figure.style.display = "block";
-        });
-    } else {
-        figures.forEach((figure) => {
-            figure.dataset.category === datasetCategory
-            ? (figure.style.display = "block")
-            : (figure.style.display = "none");
-        });
-    }
-}
+// Filter / Apres ma fonction de creation de btn => new fonction avec objet array(.filter) 
+                                                                    function functionFilter() {
+                                                                        const filterbuttons = document.querySelectorAll(".btn");
+                                                                        filterbuttons.forEach((i) => {
+                                                                            i.addEventListener("click", function () {
+                                                                                toggleProjects(i.dataset.category);
+                                                                            });
+                                                                        });
+                                                                    }
+                                                                    // 
+                                                                    function toggleProjects(datasetCategory) {
+                                                                        const figures = document.querySelectorAll(".workCard");
+                                                                        if ("Tous" === datasetCategory) {
+                                                                            figures.forEach((figure) => {
+                                                                                figure.style.display = "block";
+                                                                            });
+                                                                        } else {
+                                                                            figures.forEach((figure) => {
+                                                                                figure.dataset.category === datasetCategory
+                                                                                ? (figure.style.display = "block")
+                                                                                : (figure.style.display = "none");
+                                                                            });
+                                                                        }
+                                                                    }
 
 //******************************ADMIN MODE******************************************/
 
@@ -180,7 +186,7 @@ document.getElementById("logLink").addEventListener("click", (e) => {
 function openModal(){
     document.querySelector('.overlay').style.display = 'block'
     document.querySelector('.modal').style.display = 'block'
-
+    document.querySelector('#modal2').style.display = 'none'
 }
 
 //*******Close Modal*******/
@@ -207,9 +213,9 @@ function modalDataGallery(data){
         litleCard.className = "litleCard"
         modalGallery.appendChild(litleCard)
         litleCard.append(litleImage,binIcon)
-
-        document.querySelector(".modal_btn_add_pict").addEventListener("click", openNewModal)
-
+        //Open modal
+        document.addEventListener("click", openNewModal)
+        
         //**Delete mode**/
         document.addEventListener("click",btnDelet)
     })
@@ -242,8 +248,22 @@ function deleteWork(i){
         }
     })
 }
-//******ADD Picture*****/
-function openNewModal(){
-    document.querySelector('#modal2').style.display = 'block'
+
+//*********************************Modal 2***********/
+
+const openNewModal = function (e) {
+    if(e.target === document.querySelector(".modal_btn_add_pict")){
+        modalStep = 1
+        document.querySelector('#modal2').style.display = 'block'
+        document.querySelector('#btnadd').style.backgroundColor = "#A7A7A7"
+        document.querySelector('#previewPict').style.display = 'none'
+        //**Preview picture */
+        
+
+
+        document.querySelector('#return').addEventListener("click", openModal)
+        document.querySelector('#closeTwo').addEventListener("click", closeModal)
+    }
 }
- 
+
+//******ADD Picture*****/
