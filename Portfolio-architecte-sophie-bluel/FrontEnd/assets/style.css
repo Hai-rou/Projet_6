@@ -188,12 +188,11 @@ table {
 	justify-content: center;
 }
 #photo{
-	position: absolute;
-	z-index: -1;
-	width: 0.1px;
-	height: 0.1px;
-	opacity: 0;
-	overflow: hidden;
+	
+	width: 250px;
+	height: 70px;
+	display: inline-block;
+	opacity: 1;
 }
 #title{
 	border: none;

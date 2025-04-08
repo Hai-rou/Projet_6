@@ -176,6 +176,7 @@ isAdmin()
 
 document.getElementById("logLink").addEventListener("click", (e) => {
     e.preventDefault()
+    e.stopPropagation()
     sessionStorage.removeItem("token")
     window.location.href="login.html"
 })
@@ -187,6 +188,7 @@ function openModal(){
     document.querySelector('.overlay').style.display = 'block'
     document.querySelector('.modal').style.display = 'block'
     document.querySelector('#modal2').style.display = 'none'
+    document.querySelector('.modal_gallery').style.display = 'grid'
 }
 
 //*******Close Modal*******/
@@ -225,6 +227,7 @@ function modalDataGallery(data){
 
 const btnDelet = function(e) {
     e.preventDefault()
+    e.stopPropagation()
 
     if(e.target.matches(".fa-trash-can")){
         deleteWork(e.target.id)
@@ -252,18 +255,58 @@ function deleteWork(i){
 //*********************************Modal 2***********/
 
 const openNewModal = function (e) {
-    if(e.target === document.querySelector(".modal_btn_add_pict")){
-        modalStep = 1
-        document.querySelector('#modal2').style.display = 'block'
-        document.querySelector('#btnadd').style.backgroundColor = "#A7A7A7"
-        document.querySelector('#previewPict').style.display = 'none'
-        //**Preview picture */
-        
+    if (e.target === document.querySelector(".modal_btn_add_pict")) {
+        // Ouvrir le modal
+        document.querySelector('#modal2').style.display = 'block';
+        document.querySelector('#btnadd').style.backgroundColor = "#A7A7A7";
+        document.querySelector('#previewPict').style.display = 'flex';
 
+        // Affichage du label "Ajouter une photo"
+        const browseButton = document.querySelector('#browsePictures');
+        const fileInput = document.querySelector('#photo');
 
-        document.querySelector('#return').addEventListener("click", openModal)
-        document.querySelector('#closeTwo').addEventListener("click", closeModal)
+        // Vérification si le fichier input est bien présent
+        console.log('élément <input type="file"> trouvé:', fileInput);
+
+        // Si le label est cliqué, forcer un clic sur l'élément <input type="file">
+        browseButton.addEventListener('click', function () {
+            console.log('Label "+ Ajouter une photo" cliqué.');
+            if (fileInput) {
+                fileInput.click(); // Clic forcé sur l'input[type="file"]
+                console.log('Clic forcé sur l\'input[type="file"]');
+            } else {
+                console.log('Élément <input type="file"> introuvable!');
+            }
+        });
+
+        // Gestion du changement de fichier
+        fileInput.addEventListener('change', function (event) {
+            const file = event.target.files[0];
+            if (file) {
+                console.log('Fichier sélectionné:', file.name);
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const previewImg = document.querySelector('#previewPictImg');
+                    previewImg.src = e.target.result; // Affichage de l'aperçu de l'image
+                };
+                reader.readAsDataURL(file);
+            } else {
+                console.log('Aucun fichier sélectionné');
+            }
+        });
+
+        // Autres événements de fermeture et retour
+        document.querySelector('#return').addEventListener("click", openModal);
+        document.querySelector('#closeTwo').addEventListener("click", closeModal);
     }
-}
+};
+
+// Vérification si l'élément #browsePictures existe et est fonctionnel
+document.querySelector('#browsePictures').addEventListener('click', function () {
+    console.log('Le bouton "+ Ajouter une photo" a été cliqué.');
+});
+
+
+
 
 //******ADD Picture*****/
