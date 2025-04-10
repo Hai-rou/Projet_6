@@ -6,6 +6,25 @@ let categories;
 let filter;
 let gallery;
 
+
+/***Overlay */
+const overlay = document.querySelector('.overlay')
+/**Modal 1 items*/
+const modal1 = document.querySelector('.modal')
+const modalClose = document.querySelector(".modal_close")
+/***Modal 2 items */
+const modal2 = document.querySelector('#modal2')
+const btnadd = document.querySelector('#btnadd')
+const backBtn = document.querySelector('#return')
+const modalCloseTwo = document.querySelector("#closeTwo")
+
+const previewimg = document.querySelector('#previewPictImg')
+const btnModal1 = document.querySelector(".modal_btn_add_pict")
+
+const previewPict = document.querySelector('#previewPict')
+const fileInput = document.querySelector('#photo');
+
+
 /****Recupération des travaux depuis le back end***/
 window.onload = () =>{
     fetch(`${ApiUrl}works`)
@@ -58,6 +77,7 @@ async function getFilters() {
 
 }
 getFilters()
+
 /****Get array category (A MODIFIER)**/
 function listOfcategories() {
     let listOfcategories = new Set();
@@ -70,57 +90,53 @@ function listOfcategories() {
     categories = arrayofStrings.map((s) => JSON.parse(s));
     console.log(categories)
 }
-                        //Init buttons
-                        function dataFilter(categories, filter) {
-                            // Créer le bouton "Tous"
-                            const allButton = document.createElement("button");
-                            allButton.innerText = "Tous";
-                            allButton.className = "btn";
-                            allButton.dataset.category = "Tous";
-                            filter.appendChild(allButton);
-                        
-                            // Créer un bouton pour chaque catégorie
-                            categories.forEach((categorie) => {
-                                const button = document.createElement("button");
-                                button.innerText = categorie.name;
-                                button.className = "btn";
-                                button.dataset.category = categorie.name;
-                                filter.appendChild(button);
-                            });
-                        
-                            // Appel de la fonction de gestion du filtre (supposée définie ailleurs)
-                            functionFilter();
-                        }
-                        
+//Init buttons
+function dataFilter(categories, filter) {
+    // Create btn "Tous"
+    const allButton = document.createElement("button");
+    allButton.innerText = "Tous";
+    allButton.className = "btn";
+    allButton.dataset.category = "Tous";
+    filter.appendChild(allButton);
 
-                                                                  
-                                                                    
+    // Create each btn of category
+    categories.forEach((categorie) => {
+        const button = document.createElement("button");
+        button.innerText = categorie.name;
+        button.className = "btn";
+        button.dataset.category = categorie.name;
+        filter.appendChild(button);
+    });
+
+    // Call function filter
+    functionFilter();
+}
 
 
 // Filter / Apres ma fonction de creation de btn => new fonction avec objet array(.filter) 
-                                                                    function functionFilter() {
-                                                                        const filterbuttons = document.querySelectorAll(".btn");
-                                                                        filterbuttons.forEach((i) => {
-                                                                            i.addEventListener("click", function () {
-                                                                                toggleProjects(i.dataset.category);
-                                                                            });
-                                                                        });
-                                                                    }
-                                                                    // 
-                                                                    function toggleProjects(datasetCategory) {
-                                                                        const figures = document.querySelectorAll(".workCard");
-                                                                        if ("Tous" === datasetCategory) {
-                                                                            figures.forEach((figure) => {
-                                                                                figure.style.display = "block";
-                                                                            });
-                                                                        } else {
-                                                                            figures.forEach((figure) => {
-                                                                                figure.dataset.category === datasetCategory
-                                                                                ? (figure.style.display = "block")
-                                                                                : (figure.style.display = "none");
-                                                                            });
-                                                                        }
-                                                                    }
+function functionFilter() {
+    const filterbuttons = document.querySelectorAll(".btn");
+    filterbuttons.forEach((i) => {
+        i.addEventListener("click", function () {
+            toggleProjects(i.dataset.category);
+        });
+    });
+}
+// 
+function toggleProjects(datasetCategory) {
+    const figures = document.querySelectorAll(".workCard");
+    if ("Tous" === datasetCategory) {
+        figures.forEach((figure) => {
+            figure.style.display = "block";
+        });
+    } else {
+        figures.forEach((figure) => {
+            figure.dataset.category === datasetCategory
+            ? (figure.style.display = "block")
+            : (figure.style.display = "none");
+        });
+    }
+}
 
 //******************************ADMIN MODE******************************************/
 
@@ -156,16 +172,18 @@ function isAdmin() {
 
         const btnEtid = `<p class="btnEtid"><i class="fa-solid fa-pen-to-square"></i>Mode édition</p>`
         document.querySelector("#portfolio h2").insertAdjacentHTML("afterend", btnEtid)
+        const pOpenModal = document.querySelector("#portfolio p")
 
         //Event listener modal
+
         //Open modal
-        document.querySelector("#portfolio p").addEventListener("click", openModal)
+        pOpenModal.addEventListener("click", openModal)
+        btnModal1.addEventListener("click", openNewModal)
         //Close Modal
-        document.querySelector(".modal_close").addEventListener("click", closeModal)
-        document.querySelector(".overlay").addEventListener("click", closeModal)
-        //Delete work
-        
+        modalClose.addEventListener("click", closeModal)
+        overlay.addEventListener("click", closeModal)
    }
+
 }
 
 isAdmin()
@@ -174,7 +192,6 @@ isAdmin()
 
 document.getElementById("logLink").addEventListener("click", (e) => {
     e.preventDefault()
-    e.stopImmediatePropagation()
     sessionStorage.removeItem("token")
     window.location.href="login.html"
 })
@@ -183,18 +200,18 @@ document.getElementById("logLink").addEventListener("click", (e) => {
 
 /****Open modal*****/
 function openModal(){
-    document.querySelector('.overlay').style.display = 'block'
-    document.querySelector('.modal').style.display = 'block'
-    document.querySelector('#modal2').style.display = 'none'
-    document.querySelector('.modal_gallery').style.display = 'grid'
-}
+    overlay.style.display = 'block'
+    modal1.style.display = 'block'
+    modal2.style.display = 'none'
 
+}
 //*******Close Modal*******/
 
 function closeModal(){
-    document.querySelector('.modal').style.display = 'none'
-    document.querySelector('#modal2').style.display = 'none'
-    document.querySelector('.overlay').style.display = 'none'
+    modal1.style.display = 'none'
+    overlay.style.display = 'none'
+    modal2.style.display = 'none'
+
 }
 //***************Create Modal gallery**********/
 function modalDataGallery(data){
@@ -215,7 +232,7 @@ function modalDataGallery(data){
         modalGallery.appendChild(litleCard)
         litleCard.append(litleImage,binIcon)
         //Open modal
-        document.addEventListener("click", openNewModal)
+        
         
         //**Delete mode**/
         document.addEventListener("click",btnDelet)
@@ -226,7 +243,6 @@ function modalDataGallery(data){
 
 const btnDelet = function(e) {
     e.preventDefault()
-    e.stopImmediatePropagation()
     if(e.target.matches(".fa-trash-can")){
         deleteWork(e.target.id)
     }
@@ -252,28 +268,66 @@ function deleteWork(i){
 
 //*********************************Modal 2***********/
 
-const openNewModal = function (e) {
-    if (e.target === document.querySelector(".modal_btn_add_pict")) {
-        // Ouvrir le modal
-        document.querySelector('#modal2').style.display = 'block';
-        document.querySelector('#btnadd').style.backgroundColor = "#A7A7A7";
-        document.querySelector('#previewPict').style.display = 'none';
-        document.querySelector('#modal1').style.display = 'none'
-        
-        const fileInput = document.querySelector('#photo');
-        console.log(fileInput);
-        document.querySelector("#photo").addEventListener("change", picturePreview);
+function openNewModal(){
+    modal1.style.display = 'none'
+    modal2.style.display = 'block'
+    btnadd.style.backgroundColor = "#A7A7A7";
+    previewPict.style.display = 'none';
 
+    fileInput.addEventListener(("change"),() => {
+    const file = fileInput.files[0]
+    console.log(file)
+        if(file){
+            const reader = new FileReader()
 
+            reader.onload = function(e) {
+                previewimg.innerHTML = ""
+                previewimg.src = e.target.result
+                console.log(previewimg)
+            
+            }
 
-        // Autres événements de fermeture et retour
-        document.querySelector('#return').addEventListener("click", openModal);
-        document.querySelector('#closeTwo').addEventListener("click", closeModal);
-    }
-};
+            reader.readAsDataURL(file)
+            console.log(file)
+
+        }
+    })
+
+    //Other events
+    modalCloseTwo.addEventListener("click", closeModal)
+    overlay.addEventListener("click", closeModal)
+    
+}
+
+function returnBack(){
+    backBtn.addEventListener("click", openModal);
+}
+returnBack()
 
 //******ADD Picture*****/
-const picturePreview = function(){
+
+
+/****function picturePreview(){
+    fileInput.addEventListener(("change"),() => {
+        const file = fileInput.files[0]
+        console.log(file)
+        if(file){
+            const reader = new FileReader()
+
+            reader.onload = function(e) {
+                previewimg.innerHTML = ""
+                previewimg.src = e.target.result
+                console.log(previewimg)
+            }
+
+            reader.readAsDataURL(file)
+            console.log(file)
+        }
+    })
+***/
+
+
+/*********const picturePreview = function(){
     const [file] = pictureInput.files;
     if (file) {
         const fileURL = URL.createObjectURL(file);
@@ -284,4 +338,4 @@ const picturePreview = function(){
         console.error("Aucun fichier sélectionné");
     }
 }
-
+**/
