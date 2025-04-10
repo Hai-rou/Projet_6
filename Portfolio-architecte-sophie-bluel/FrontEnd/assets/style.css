@@ -69,6 +69,7 @@ table {
 	padding: 30px;
 	border-radius: 10px;
 	display: none;
+
 }
 .modal_close{
 	background-color: white;
@@ -167,18 +168,27 @@ table {
 	font-size: 90px;
 	color: #B9C5CC;
 }
-#browsePictures{
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	width: 173px;
-	height: 40px;
-	color: #306685;
-	background-color: #CBD6DC;
-	border-radius: 50px;
-	font-weight: 700;
-	cursor: pointer;
+#browsePictures {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 250px; /* Correspond à la largeur du champ de fichier */
+    height: 50px; /* Hauteur suffisante pour être facilement cliquable */
+    color: #306685;
+    background-color: #CBD6DC;
+    border-radius: 50px;
+    font-weight: 700;
+    cursor: pointer;
+    margin-top: 20px;
+    text-align: center;
+    font-size: 16px;
 }
+
+#browsePictures:hover {
+    background-color: #1D6154; /* Change la couleur au survol */
+    color: #fff; /* Change la couleur du texte au survol */
+}
+
 /**Add picture*****/
 #previewPict{
 	display: flex;
@@ -187,13 +197,19 @@ table {
 	width: 100%;
 	justify-content: center;
 }
-#photo{
-	
-	width: 250px;
-	height: 70px;
-	display: inline-block;
-	opacity: 1;
+#photo {
+    width: 100%;  /* Prendre toute la largeur du container pour que l'utilisateur puisse cliquer partout */
+    height: 70px; /* Ajustez en fonction de vos besoins */
+    position: absolute;
+    opacity: 1;  /* Cacher l'input mais garder l'interactivité */
+    z-index: 10;  /* Assurez-vous qu'il soit au-dessus des autres éléments */
 }
+input[type="file"] {
+    visibility: visible;
+    display: block; /* ou inline-block */
+    z-index: 1000;
+}
+
 #title{
 	border: none;
 	height: 40px;

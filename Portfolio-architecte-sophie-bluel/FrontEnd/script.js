@@ -70,34 +70,32 @@ function listOfcategories() {
     categories = arrayofStrings.map((s) => JSON.parse(s));
     console.log(categories)
 }
-                                                                    //Init buttons
-                                                                    function dataFilter(categories, filter){
-                                                                        const button =document.createElement("button");
-                                                                        button.innerText = "Tous";
-                                                                        button.className = "btn";
-                                                                        button.dataset.category = "Tous";
-                                                                        filter.appendChild(button);
-                                                                        filterBtn(categories, filter);
-                                                                        functionFilter();
-                                                                        
-                                                                    }
+                        //Init buttons
+                        function dataFilter(categories, filter) {
+                            // Créer le bouton "Tous"
+                            const allButton = document.createElement("button");
+                            allButton.innerText = "Tous";
+                            allButton.className = "btn";
+                            allButton.dataset.category = "Tous";
+                            filter.appendChild(allButton);
+                        
+                            // Créer un bouton pour chaque catégorie
+                            categories.forEach((categorie) => {
+                                const button = document.createElement("button");
+                                button.innerText = categorie.name;
+                                button.className = "btn";
+                                button.dataset.category = categorie.name;
+                                filter.appendChild(button);
+                            });
+                        
+                            // Appel de la fonction de gestion du filtre (supposée définie ailleurs)
+                            functionFilter();
+                        }
+                        
 
+                                                                  
+                                                                    
 
-                                                                    /****Create button***/
-                                                                    function filterBtn(categories, filter) {
-                                                                        categories.forEach((categorie) => {
-                                                                            createbtnfilter(categorie, filter)
-                                                                        })
-                                                                        
-                                                                    }
-
-                                                                    function createbtnfilter(categorie, filter) {
-                                                                        const button = document.createElement("button");
-                                                                        button.innerText = categorie.name;
-                                                                        button.className = "btn"; 
-                                                                        button.dataset.category = categorie.name; 
-                                                                        filter.appendChild(button)
-}
 
 // Filter / Apres ma fonction de creation de btn => new fonction avec objet array(.filter) 
                                                                     function functionFilter() {
@@ -176,7 +174,7 @@ isAdmin()
 
 document.getElementById("logLink").addEventListener("click", (e) => {
     e.preventDefault()
-    e.stopPropagation()
+    e.stopImmediatePropagation()
     sessionStorage.removeItem("token")
     window.location.href="login.html"
 })
@@ -195,6 +193,7 @@ function openModal(){
 
 function closeModal(){
     document.querySelector('.modal').style.display = 'none'
+    document.querySelector('#modal2').style.display = 'none'
     document.querySelector('.overlay').style.display = 'none'
 }
 //***************Create Modal gallery**********/
@@ -227,8 +226,7 @@ function modalDataGallery(data){
 
 const btnDelet = function(e) {
     e.preventDefault()
-    e.stopPropagation()
-
+    e.stopImmediatePropagation()
     if(e.target.matches(".fa-trash-can")){
         deleteWork(e.target.id)
     }
@@ -259,41 +257,14 @@ const openNewModal = function (e) {
         // Ouvrir le modal
         document.querySelector('#modal2').style.display = 'block';
         document.querySelector('#btnadd').style.backgroundColor = "#A7A7A7";
-        document.querySelector('#previewPict').style.display = 'flex';
-
-        // Affichage du label "Ajouter une photo"
-        const browseButton = document.querySelector('#browsePictures');
+        document.querySelector('#previewPict').style.display = 'none';
+        document.querySelector('#modal1').style.display = 'none'
+        
         const fileInput = document.querySelector('#photo');
+        console.log(fileInput);
+        document.querySelector("#photo").addEventListener("change", picturePreview);
 
-        // Vérification si le fichier input est bien présent
-        console.log('élément <input type="file"> trouvé:', fileInput);
 
-        // Si le label est cliqué, forcer un clic sur l'élément <input type="file">
-        browseButton.addEventListener('click', function () {
-            console.log('Label "+ Ajouter une photo" cliqué.');
-            if (fileInput) {
-                fileInput.click(); // Clic forcé sur l'input[type="file"]
-                console.log('Clic forcé sur l\'input[type="file"]');
-            } else {
-                console.log('Élément <input type="file"> introuvable!');
-            }
-        });
-
-        // Gestion du changement de fichier
-        fileInput.addEventListener('change', function (event) {
-            const file = event.target.files[0];
-            if (file) {
-                console.log('Fichier sélectionné:', file.name);
-                const reader = new FileReader();
-                reader.onload = function (e) {
-                    const previewImg = document.querySelector('#previewPictImg');
-                    previewImg.src = e.target.result; // Affichage de l'aperçu de l'image
-                };
-                reader.readAsDataURL(file);
-            } else {
-                console.log('Aucun fichier sélectionné');
-            }
-        });
 
         // Autres événements de fermeture et retour
         document.querySelector('#return').addEventListener("click", openModal);
@@ -301,12 +272,16 @@ const openNewModal = function (e) {
     }
 };
 
-// Vérification si l'élément #browsePictures existe et est fonctionnel
-document.querySelector('#browsePictures').addEventListener('click', function () {
-    console.log('Le bouton "+ Ajouter une photo" a été cliqué.');
-});
-
-
-
-
 //******ADD Picture*****/
+const picturePreview = function(){
+    const [file] = pictureInput.files;
+    if (file) {
+        const fileURL = URL.createObjectURL(file);
+        document.querySelector('#previewPictImg').src = fileURL;
+        document.querySelector('#previewPict').style.display = 'flex';
+        document.querySelector('#labelpicture').style.display = 'none';
+    } else {
+        console.error("Aucun fichier sélectionné");
+    }
+}
+
