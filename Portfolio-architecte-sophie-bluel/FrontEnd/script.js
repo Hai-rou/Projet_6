@@ -22,7 +22,7 @@ const previewimg = document.querySelector('#previewPictImg')
 const btnModal1 = document.querySelector(".modal_btn_add_pict")
 
 const previewPict = document.querySelector('#previewPict')
-const fileInput = document.querySelector('#photo');
+const fileInput = document.querySelector('#browsePictures');
 
 
 /****Recupération des travaux depuis le back end***/
@@ -274,25 +274,6 @@ function openNewModal(){
     btnadd.style.backgroundColor = "#A7A7A7";
     previewPict.style.display = 'none';
 
-    fileInput.addEventListener(("change"),() => {
-    const file = fileInput.files[0]
-    console.log(file)
-        if(file){
-            const reader = new FileReader()
-
-            reader.onload = function(e) {
-                previewimg.innerHTML = ""
-                previewimg.src = e.target.result
-                console.log(previewimg)
-            
-            }
-
-            reader.readAsDataURL(file)
-            console.log(file)
-
-        }
-    })
-
     //Other events
     modalCloseTwo.addEventListener("click", closeModal)
     overlay.addEventListener("click", closeModal)
@@ -303,6 +284,28 @@ function returnBack(){
     backBtn.addEventListener("click", openModal);
 }
 returnBack()
+
+function picturePreview(){
+    fileInput.addEventListener(("change"),() => {
+        const file = fileInput.files[0]
+        console.log(file)
+            if(file){
+                const reader = new FileReader()
+    
+                reader.onload = function(e) {
+                    previewimg.innerHTML = ""
+                    previewimg.src = e.target.result
+                    console.log(previewimg)
+                
+                }
+    
+                reader.readAsDataURL(file)
+                console.log(file)
+    
+            }
+        })
+}
+
 
 //******ADD Picture*****/
 
