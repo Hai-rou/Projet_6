@@ -273,17 +273,19 @@ function openNewModal(){
     modal2.style.display = 'block'
     btnadd.style.backgroundColor = "#A7A7A7";
     previewPict.style.display = 'none';
-
+    
+    console.log(fileInput)
+    fileInput.addEventListener("click",picturePreview)
     //Other events
     modalCloseTwo.addEventListener("click", closeModal)
     overlay.addEventListener("click", closeModal)
-    
 }
 
 function returnBack(){
     backBtn.addEventListener("click", openModal);
 }
 returnBack()
+
 
 function picturePreview(){
     fileInput.addEventListener(("change"),() => {
@@ -305,7 +307,6 @@ function picturePreview(){
             }
         })
 }
-
 
 //******ADD Picture*****/
 

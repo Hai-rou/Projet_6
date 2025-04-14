@@ -204,11 +204,7 @@ table {
     opacity: 1;  /* Cacher l'input mais garder l'interactivité */
     z-index: 10;  /* Assurez-vous qu'il soit au-dessus des autres éléments */
 }
-input[type="file"] {
-    visibility: visible;
-    display: block; /* ou inline-block */
-    z-index: 1000;
-}
+
 
 #title{
 	border: none;
