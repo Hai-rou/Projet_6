@@ -308,38 +308,6 @@ function picturePreview(){
         })
 }
 
-//******ADD Picture*****/
 
 
-/****function picturePreview(){
-    fileInput.addEventListener(("change"),() => {
-        const file = fileInput.files[0]
-        console.log(file)
-        if(file){
-            const reader = new FileReader()
 
-            reader.onload = function(e) {
-                previewimg.innerHTML = ""
-                previewimg.src = e.target.result
-                console.log(previewimg)
-            }
-
-            reader.readAsDataURL(file)
-            console.log(file)
-        }
-    })
-***/
-
-
-/*********const picturePreview = function(){
-    const [file] = pictureInput.files;
-    if (file) {
-        const fileURL = URL.createObjectURL(file);
-        document.querySelector('#previewPictImg').src = fileURL;
-        document.querySelector('#previewPict').style.display = 'flex';
-        document.querySelector('#labelpicture').style.display = 'none';
-    } else {
-        console.error("Aucun fichier sélectionné");
-    }
-}
-**/
