@@ -147,6 +147,7 @@ table {
 	flex-direction: column;
 	padding-bottom: 40px;
 	border-bottom: solid 1px #B3B3B3;
+	width: 100%;
 	gap: 15px;
 }
 #labelpicture{
@@ -191,17 +192,20 @@ table {
 
 /**Add picture*****/
 #previewPict{
-	display: flex;
+	display: none;
 	background-color: #E8F1F6;
-	height: 200px;
+	height: 250px;
 	width: 100%;
 	justify-content: center;
+}
+#previewPictImg{
+	width: 30%;
 }
 #photo {
     width: 100%;  /* Prendre toute la largeur du container pour que l'utilisateur puisse cliquer partout */
     height: 70px; /* Ajustez en fonction de vos besoins */
     position: absolute;
-    opacity: 1;  /* Cacher l'input mais garder l'interactivité */
+    opacity: 0;  /* Cacher l'input mais garder l'interactivité */
     z-index: 10;  /* Assurez-vous qu'il soit au-dessus des autres éléments */
 }
 
