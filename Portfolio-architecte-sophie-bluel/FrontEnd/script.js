@@ -27,6 +27,8 @@ const btnModal1 = document.querySelector(".modal_btn_add_pict")
 
 const previewPict = document.querySelector('#previewPict')
 const fileInput = document.querySelector('#photo');
+/****Select category */
+const selectCategory = document.querySelector("#selectCategory")
 
 
 // FETCH works data from API and display it
@@ -265,7 +267,8 @@ function openNewModal(){
     btnadd.style.backgroundColor = "#A7A7A7";
     previewPict.style.display = 'none';
     
-    console.log(fileInput)
+    selectCategoryForm()
+    
     fileInput.addEventListener("click",picturePreview)
     //Other events
     modalCloseTwo.addEventListener("click", closeModal)
@@ -298,10 +301,6 @@ function picturePreview() {
 
                 // Cacher l'icône et le texte
                 label.style.display = 'none';  // Cacher le label
-                const icon = document.querySelector('#picture');  // Icône image
-                const p = document.querySelector('p'); // Paragraphe
-                icon.style.display = 'none';  // Cacher l'icône
-                p.style.display = 'none';  // Cacher le texte
 
                 // Créer un élément <img> et l'ajouter à la place du label
                 const imgElement = document.createElement('img');
@@ -317,20 +316,116 @@ function picturePreview() {
     });
 }
 picturePreview();
+
+
 //category options for form
-const selectCategoryForm = function () {
+function selectCategoryForm() {
   //reset categories
-  document.querySelector("#selectCategory").innerHTML = "";
+  selectCategory.innerHTML = "";
   //empty first option
   option = document.createElement("option");
-  document.querySelector("#selectCategory").appendChild(option);
+  selectCategory.append(option);
   //options from categories array
   categories.forEach((categorie) => {
     option = document.createElement("option");
     option.value = categorie.name;
     option.innerText = categorie.name;
     option.id = categorie.id;
-    document.querySelector("#selectCategory").appendChild(option);
+    selectCategory.appendChild(option);
   });
 };
+
+
+//submit work form event listener
+const newWorkFormSubmit = function (e) {
+  if (e.target === document.querySelector("#valider")) {
+    e.preventDefault();
+    postNewWork();
+  }
+}
+
+//POST new work
+function postNewWork() {
+  let token = sessionStorage.getItem("token");
+  const select = document.getElementById("selectCategory");
+  //get data from form
+  const title = document.getElementById("title").value;
+  const categoryName = select.options[select.selectedIndex].innerText;
+  const categoryId = select.options[select.selectedIndex].id;
+  const image = document.getElementById("photo").files[0];
+  //check form validity
+  let validity = formValidation(image, title, categoryId);
+  if (validity === true) {
+    //create FormData
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("category", categoryId);
+    // send collected data to API
+    sendNewData(token, formData, title, categoryName);
+  }
+};
+
+//change submit button color if all fields are filled
+const changeSubmitBtnColor = function() {
+  const select = document.getElementById("selectCategory");
+  if (document.getElementById("title").value !== "" && document.getElementById("photo").files[0] !== undefined && select.options[select.selectedIndex].id !== "") {
+    document.querySelector("#valider").style.backgroundColor = "#1D6154";
+  }
+}
+
+//form validation
+const formValidation = function(image, title, categoryId) {
+  if (image == undefined){
+    alert("Veuillez ajouter une image");
+    return false;
+  }
+  if (title.trim().length == 0){    
+    alert("Veuillez ajouter un titre");
+    return false;
+  }
+  if (categoryId == ""){
+    alert("Veuillez choisir une catégorie");
+    return false;
+  }else{
+  return true;
+  }
+}
+
+//add new work in worksData array for dynamic display using API response
+const addToWorksData = function(data, categoryName) {
+  newWork = {};
+  newWork.title = data.title;
+  newWork.id = data.id;
+  newWork.category = {"id" : data.categoryId, "name" : categoryName};
+  newWork.imageUrl = data.imageUrl;
+  worksData.push(newWork);
+}
+
+//API call for new work
+function sendNewData(token, formData, title, categoryName) {
+  fetch(`${baseApiUrl}works`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Nouveau fichier envoyé avec succés : " + title);
+        return response.json();
+      } else {
+        console.error("Erreur:", response.status);
+      }
+    })
+    .then ((data) => {
+      addToWorksData(data, categoryName);
+      displayGallery(worksData);
+      document.querySelector(".modal").style.display = "none";
+      document.removeEventListener("click", closeModal);
+      modalStep = null;
+    })
+    .catch((error) => console.error("Erreur:", error));
+}
 

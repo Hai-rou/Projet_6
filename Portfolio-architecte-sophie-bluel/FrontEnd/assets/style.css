@@ -133,6 +133,7 @@ table {
 	color: white;
 	margin-top: -15px;
 	cursor: pointer;
+	border: none;
 }
 /******Second Modal******/
 #return{
@@ -141,6 +142,11 @@ table {
 	font-size: 30px;
 	font-weight: bold;
 	margin-top: -10px;
+}
+input[type="text"], option, textarea, input[type="email"], #selectCategory {
+	font-family: 'Work Sans';
+	font-size:1em;
+	color: #444444 ;                  
 }
 #addPictureForm{
 	display: flex;
@@ -161,10 +167,11 @@ table {
 	background-color: #E8F1F6;
 	gap: 10px;
 	margin-bottom: 30px;
-}
-#labelpicture{
 	color: #444444;
+	padding-top: 15px;
+	padding-bottom: 15px;
 }
+
 #picture{
 	font-size: 90px;
 	color: #B9C5CC;
