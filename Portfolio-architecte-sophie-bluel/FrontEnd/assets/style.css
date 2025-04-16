@@ -76,7 +76,6 @@ table {
 	border: none;
 	position: absolute;
 	cursor: pointer;
-	position-area: bottom;
 	margin-left: 84%;
 }
 .modal_close .fa-solid{
