@@ -17,6 +17,8 @@ const overlay = document.querySelector('.overlay')
 const modal1 = document.querySelector('.modal')
 const modalClose = document.querySelector(".modal_close")
 /***Modal 2 items */
+const pictureForm = document.querySelector('#addPictureForm')
+const labelPicture = document.querySelector('#labelpicture')
 const modal2 = document.querySelector('#modal2')
 const btnadd = document.querySelector('#btnadd')
 const backBtn = document.querySelector('#return')
@@ -178,6 +180,7 @@ function adminUserMode() {
     btnModal1.addEventListener("click", openNewModal)
     //Close Modal
     modalClose.addEventListener("click", closeModal)
+    overlay.addEventListener("click", closeModal)
     }
 }
 //*************Delete token when logout**************/
@@ -266,13 +269,17 @@ function openNewModal(){
     modal2.style.display = 'block'
     btnadd.style.backgroundColor = "#A7A7A7";
     previewPict.style.display = 'none';
-    
+
+    //function
     selectCategoryForm()
-    
-    fileInput.addEventListener("click",picturePreview)
+
     //Other events
+    pictureForm.onchange = switchBtnColor
+    fileInput.addEventListener("click",picturePreview)
     modalCloseTwo.addEventListener("click", closeModal)
     overlay.addEventListener("click", closeModal)
+    btnadd.addEventListener("click", newWorkSubmit)
+    btnadd.addEventListener("click", closeModal)
 }
 
 function returnBack(){
@@ -317,7 +324,6 @@ function picturePreview() {
 }
 picturePreview();
 
-
 //category options for form
 function selectCategoryForm() {
   //reset categories
@@ -335,5 +341,103 @@ function selectCategoryForm() {
   });
 };
 
+//Switch color submit button
+const switchBtnColor = function() {
+  const select = document.getElementById("selectCategory");
+  if (document.getElementById("title").value !== "" && document.getElementById("photo").files[0] !== undefined && select.options[select.selectedIndex].id !== "") {
+    document.querySelector("#btnadd").style.backgroundColor = "#1D6154";
+  }
+}
 
+//form validation
+const formValidation = function(image, title, categoryId) {
+  if (image == undefined){
+    alert("Veuillez ajouter une image");
+    return false;
+  }
+  if (title.trim().length == 0){    
+    alert("Veuillez ajouter un titre");
+    return false;
+  }
+  if (categoryId == ""){
+    alert("Veuillez choisir une catégorie");
+    return false;
+  }else{
+  return true;
+  }
+}
+
+//submit work form event listener
+const newWorkSubmit = function (e) {
+  if (e.target === document.querySelector("#btnadd")) {
+    e.preventDefault();
+    postNewWork();
+  }
+}
+
+//POST new work
+function postNewWork() {
+  let token = sessionStorage.getItem("token");
+  console.log(token)
+  //get data from form
+  const title = document.getElementById("title").value;
+  const categoryName = selectCategory.options[selectCategory.selectedIndex].innerText;
+  const categoryId = selectCategory.options[selectCategory.selectedIndex].id;
+  const image = document.getElementById("photo").files[0];
+  //check form validity
+  let validity = formValidation(image, title, categoryId);
+  if (validity === true) {
+    //create FormData
+    const formData = new FormData();
+    formData.append("image", image);
+    formData.append("title", title);
+    formData.append("category", categoryId);
+    // send collected data to API
+    sendNewData(token, formData, title, categoryName);
+  }
+};
+
+//Refresh Form
+function softFreshForm(){
+  document.querySelectorAll('Form').forEach(form => form.reset())
+  labelPicture.style.display = 'flex'
+}
+
+//add new work in worksData array for dynamic display using API response
+const addToWorksData = function(data, categoryName) {
+  newWork = {};
+  newWork.title = data.title;
+  newWork.id = data.id;
+  newWork.category = {"id" : data.categoryId, "name" : categoryName};
+  newWork.imageUrl = data.imageUrl;
+  worksData.push(newWork);
+}
+
+//API call for new work
+function sendNewData(token, formData, title, categoryName) {
+  fetch(`${ApiUrl}works`, {
+    method: "POST",
+    headers: {
+      authorization: `Bearer ${token}`,
+    },
+    body: formData,
+  })
+    .then((response) => {
+      if (response.ok) {
+        alert("Nouveau fichier envoyé avec succés : " + title);
+        return response.json();
+      } else {
+        console.error("Erreur:", response.status);
+      }
+    })
+    .then ((data) => {
+      addToWorksData(data, categoryName);
+      dataGallery(worksData);
+      modal1.style.display = "none";
+      document.removeEventListener("click", closeModal);
+      modalStep = null;
+      softFreshForm()
+    })
+    .catch((error) => console.error("Erreur:", error));
+}
 
