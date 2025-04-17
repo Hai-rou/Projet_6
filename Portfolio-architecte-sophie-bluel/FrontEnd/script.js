@@ -23,10 +23,11 @@ const modal2 = document.querySelector('#modal2')
 const btnadd = document.querySelector('#btnadd')
 const backBtn = document.querySelector('#return')
 const modalCloseTwo = document.querySelector("#closeTwo")
-
-const previewimg = document.querySelector('#previewPictImg')
 const btnModal1 = document.querySelector(".modal_btn_add_pict")
 
+//**Form */
+const previewimg = document.querySelector('#previewPictImg')
+const formTitle = document.getElementById("title")
 const previewPict = document.querySelector('#previewPict')
 const fileInput = document.querySelector('#photo');
 /****Select category */
@@ -342,10 +343,11 @@ function selectCategoryForm() {
 };
 
 //Switch color submit button
+
 const switchBtnColor = function() {
   const select = document.getElementById("selectCategory");
-  if (document.getElementById("title").value !== "" && document.getElementById("photo").files[0] !== undefined && select.options[select.selectedIndex].id !== "") {
-    document.querySelector("#btnadd").style.backgroundColor = "#1D6154";
+  if (formTitle.value !== "" && fileInput.files[0] !== undefined && select.options[select.selectedIndex].id !== "") {
+    btnadd.style.backgroundColor = "#1D6154";
   }
 }
 
