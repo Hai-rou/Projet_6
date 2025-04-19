@@ -3,6 +3,7 @@ function openNewModal() {
     modal2.style.display = 'block';
     btnadd.style.backgroundColor = "#A7A7A7";
     previewPict.style.display = 'none';
+    labelPicture.style.display = 'flex'
   
     selectCategoryForm();
   
