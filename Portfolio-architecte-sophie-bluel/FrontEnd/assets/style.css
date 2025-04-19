@@ -240,6 +240,9 @@ body {
 	align-items: center;
 	height: 59px;
 }
+.topMenu i{
+	padding-right: 8px;
+}
 .btnEtid{
 	margin-top: -50px;
 	margin-left: 62%;
