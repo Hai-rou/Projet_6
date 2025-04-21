@@ -111,7 +111,7 @@ function openNewModal() {
     postNewWorkApi(token, formData)
       .then((response) => {
         if (response.ok) {
-          alert("Nouveau fichier envoyé avec succès : " + title);
+          console.log("Nouveau fichier envoyé avec succès : " + title);
           return response.json();
         } else {
           console.error("Erreur:", response.status);
