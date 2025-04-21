@@ -63,7 +63,7 @@ table {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	width: 630px;
+	width: 697px;
 	height: 688px;
 	background-color: white;
 	padding: 30px;
@@ -76,11 +76,11 @@ table {
 	border: none;
 	position: absolute;
 	cursor: pointer;
-	margin-left: 84%;
+	margin-left: 87%;
 }
 .modal_close .fa-solid{
 	font-weight: 700;
-	font-size: 20px;
+	font-size: 23px;
 }
 .modal_body{
 	padding: 45px;
@@ -88,18 +88,20 @@ table {
 	justify-content: center;
 }
 .modal_header_title{
-	font-family: 'word sans';
+	font-family: 'work sans';
 	color: black;
 	text-align: center;
 	padding-top: 30px;
+	font-weight: 400;
 
 }
 .modal_gallery{
 	display: grid;
 	grid-template-columns: 0.5fr 0.5fr 0.5fr 0.5fr 0.5fr;
 	grid-template-rows: 135px;
-	gap: 10px;
-	padding-bottom: 40px;
+	row-gap: 30px;
+	column-gap: 12px;
+	padding-bottom: 50px;
 	border-bottom: solid 1px #B3B3B3;
 }
 .modal_gallery img{
@@ -110,8 +112,13 @@ table {
 }
 
 .litleCard .fa-solid{
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	border-radius: 2px;
+	width: 17px;
+	height: 17px;
 	position: absolute;
-	border: 1px solid;
 	padding: 4px;
 	background-color: black;
 	color: white;
@@ -152,7 +159,6 @@ input[type="text"], option, textarea, input[type="email"], #selectCategory {
 	flex-direction: column;
 	padding-bottom: 40px;
 	border-bottom: solid 1px #B3B3B3;
-	width: 100%;
 	gap: 15px;
 }
 #labelpicture{
