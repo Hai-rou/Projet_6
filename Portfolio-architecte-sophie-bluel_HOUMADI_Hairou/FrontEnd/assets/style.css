@@ -206,7 +206,6 @@ input[type="text"], option, textarea, input[type="email"], #selectCategory {
 #previewPict{
 	display: none;
 	background-color: #E8F1F6;
-	height: 250px;
 	width: 100%;
 	justify-content: center;
 }
