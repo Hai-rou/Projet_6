@@ -54,7 +54,7 @@ myForm.addEventListener("submit", (event) => {
         }),
     }).then((response) => {
         if(response.status !== 200){
-            alert("Le mail ou le mot de passe est incorrect !")
+            console.log("Le mail ou le mot de passe est incorrect !")
         }else {
         response.json().then((data) => {
             //STORE TOKEN

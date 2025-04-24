@@ -44,6 +44,7 @@ function openNewModal() {
     });
   }
   picturePreview();
+  
   //Création des options via Api categories
   function selectCategoryForm() {
     selectCategory.innerHTML = "";
